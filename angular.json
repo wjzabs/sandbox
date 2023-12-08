@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/igniteui-angular/styles/igniteui-angular.css"
+              "node_modules/@infragistics/igniteui-angular/styles/igniteui-angular.css"
             ],
             "scripts": [
               "./node_modules/hammerjs/hammer.min.js"
