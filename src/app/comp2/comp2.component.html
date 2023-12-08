@@ -1,1 +1,119 @@
 <p>comp2 works!</p>
+
+<button igxButton="flat" igxRipple (click)="btnClick()">Launch Dialog</button>
+
+
+<button igxButton="raised" igxRipple="white" (click)="alert.open()">Show Alert Dialog</button>
+
+<igx-dialog #alert
+    title="Notification"
+    message="Your email has been sent successfully!"
+    leftButtonLabel="OK"
+    (leftButtonSelect)="alert.close()">
+
+    content projection
+</igx-dialog>
+
+<button igxButton="raised" igxRipple="white" (click)="form.open()">Show Custom Dialog</button>
+
+<igx-dialog #form [closeOnOutsideSelect]="true">
+    <igx-dialog-title>
+        <div class="dialog-container">
+            <igx-icon>vpn_key</igx-icon>
+            <div class="dialog-title">Sign In</div>
+        </div>
+    </igx-dialog-title>
+
+    <form class="signInForm">
+        <igx-input-group>
+            <igx-prefix>
+                <igx-icon>person</igx-icon>
+            </igx-prefix>
+            <label igxLabel for="username">Username</label>
+            <input igxInput id="username" type="text"/>
+        </igx-input-group>
+        <igx-input-group>
+            <igx-prefix>
+                <igx-icon>lock</igx-icon>
+            </igx-prefix>
+            <label igxLabel>Password</label>
+            <input igxInput id="password" type="password"/>
+        </igx-input-group>
+    </form>
+
+    <div igxDialogActions>
+        <button igxButton (click)="form.close()">CANCEL</button>
+        <button igxButton (click)="form.close()">SIGN IN</button>
+    </div>
+</igx-dialog>
+
+
+
+<button igxButton="raised" igxRipple="white" (click)="tasks.open()">Show Tabs</button>
+
+<igx-dialog #tasks [closeOnOutsideSelect]="true">
+    <igx-dialog-title>
+        <div class="dialog-container">
+            <igx-icon>vpn_key</igx-icon>
+            <div class="dialog-title">Sign In</div>
+        </div>
+    </igx-dialog-title>
+    <igx-tabs style="min-width:600px">
+        <igx-tab-item>
+            <igx-tab-header>
+                <igx-icon igxTabHeaderIcon>favorite</igx-icon>
+                <span igxTabHeaderLabel>Task List</span>
+            </igx-tab-header>
+            <igx-tab-content>
+               
+                <div class="sample-wrapper">
+                    <div class="grid__wrapper">
+                        <igx-grid  [data]="data" [allowFiltering]="true" filterMode="excelStyleFilter">
+                            <igx-column *ngFor="let each of datacolumns"
+                                [sortable]="true"
+                                [field]="each.field"
+                                [header]="each.header"
+                            >
+                            </igx-column>
+                            <igx-grid-footer>
+                this is the footer
+                            </igx-grid-footer>
+                        </igx-grid>
+                    </div>
+                </div>
+
+
+
+
+            </igx-tab-content>
+        </igx-tab-item>
+        <igx-tab-item>
+            <igx-tab-header>
+                <igx-icon igxTabHeaderIcon>favorite</igx-icon>
+                <span igxTabHeaderLabel>Add Task</span>
+            </igx-tab-header>
+            <igx-tab-content>
+              
+                <div>
+
+                    <form>
+                        <igx-input-group>
+                            <input igxInput name="fullName" [(ngModel)]="taskTitle" type="text" />
+                            <label igxLabel for="fullName">Task Title</label>
+                        </igx-input-group>
+                    </form>
+                </div>
+                <button igxButton (click)="addTask()">Add Task</button>
+                <button igxButton (click)="clearTask()">Clear Task</button>
+                <div>
+
+                </div>
+            </igx-tab-content>
+        </igx-tab-item>
+      </igx-tabs>
+
+    <div igxDialogActions>
+        <button igxButton (click)="form.close()">CANCEL</button>
+        <button igxButton (click)="form.close()">SIGN IN</button>
+    </div>
+</igx-dialog>
