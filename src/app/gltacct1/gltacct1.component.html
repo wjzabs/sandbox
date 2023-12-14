@@ -1,0 +1,127 @@
+<div class="container">
+
+
+<div class="container_title">GL Account Master</div>
+
+<form class="form">
+
+    <igx-input-group class="grid23">
+        <input igxInput name="ACCT_CODE" [(ngModel)]="GLTACCT1.ACCT_CODE" type="text" name="ACCT_CODE"/>
+        <label igxLabel for="ACCT_CODE">Account Code</label>
+    </igx-input-group>
+
+    <igx-input-group class="grid24">
+        <input igxInput name="ACCT_DESC" [(ngModel)]="GLTACCT1.ACCT_DESC" type="text" name="ACCT_DESC"/>
+        <label igxLabel for="ACCT_DESC">Description</label>
+    </igx-input-group>
+ 
+    <igx-select #select [(ngModel)]="GLTACCT1.ACCT_TYPE" class="grid23" name="ACCT_TYPE">
+        <label igxLabel>Account Type</label>
+        <igx-select-item *ngFor="let ASTCODE1 of ACCT_TYPEs" [value]="ASTCODE1.T_CODE">
+            {{ASTCODE1.T_DESC}}
+        </igx-select-item>
+    </igx-select>
+
+
+    <igx-radio-group class="grid34" (change)="onChangeRadio($event)" >
+        Status
+        <igx-radio *ngFor="let ASTCODE1 of ACCT_STATUSs" name="ACCT_STATUS"
+        [value]="ASTCODE1.T_CODE" 
+        [(ngModel)]="GLTACCT1['ACCT_STATUS']"        
+        >
+            {{ASTCODE1.T_DESC}}
+        </igx-radio>
+    </igx-radio-group>
+
+    <igx-input-group #inputGroup [igxToggleAction]="dropDown" class="grid23" name="ACCT_TYPE">
+        <input #input class="input" type="text" igxInput [igxDropDownItemNavigation]="dropDown" readonly="true"
+        [(ngModel)]="GLTACCT1.ACCT_TYPE"
+            placeholder="Account Type" [value]="dropDown.selectedItem?.value" (keydown.ArrowDown)="openDropDown()" />
+        <igx-suffix igxButton="icon" class="dropdownToggleButton" igxRipple>
+            <igx-icon>arrow_drop{{ dropDown.collapsed ? '_down' : '_up' }}</igx-icon>
+        </igx-suffix>
+    </igx-input-group>
+    <span>Selected: {{ dropDown.selectedItem?.value }}</span>
+    <igx-drop-down #dropDown [width]="'180px'">
+        <igx-drop-down-item *ngFor="let ASTCODE1 of ACCT_TYPEs" [value]="ASTCODE1.T_CODE">
+            {{ ASTCODE1.T_DESC }}
+        </igx-drop-down-item>
+    </igx-drop-down>
+
+
+    <!-- <igx-radio-group name="fruitsRadioGroup" formControlName="favoriteFruit" class="input-group ACCT_DR_CR_IND">
+        <igx-radio class="radio-sample" *ngFor="let ASTCODE1 of items2" value="{{ASTCODE1.T_CODE}}">
+            {{ASTCODE1.T_DESC}}
+        </igx-radio>
+    </igx-radio-group> -->
+
+    <igx-radio-group class="grid23">
+        <span>Normal Posting</span>
+        <igx-radio class="radio-sample" *ngFor="let ASTCODE1 of ACCT_DR_CR_INDs" 
+        name="ACCT_DR_CR_IND"
+        [value]="ASTCODE1.T_CODE" [(ngModel)]="GLTACCT1.ACCT_DR_CR_IND">
+            {{ASTCODE1.T_DESC}}
+        </igx-radio>
+    </igx-radio-group>
+
+    
+    <igx-input-group class="grid23" name="ACCT_CLASS_CODE">
+        <input igxInput name="ACCT_CLASS_CODE" [(ngModel)]="GLTACCT1.ACCT_CLASS_CODE" type="text" 
+        (change)="onChange('ACCT_CLASS_CODE')" />
+        <label igxLabel for="ACCT_CLASS_CODE">Account Class</label>
+    </igx-input-group>
+
+    <igx-input-group class="grid34 readonly" name="ACCT_CLASS_DESC">
+        <input igxInput name="ACCT_CLASS_DESC" [(ngModel)]="GLTACCT1.ACCT_CLASS_DESC" type="text"  
+        readonly  tabindex="-1"/>
+        <label igxLabel for="ACCT_CLASS_DESC">Description</label>
+    </igx-input-group>
+
+    
+
+    <!-- [(ngModel)]="GLTACCT1.ACCT_SUB_CTL" -->
+    <igx-checkbox
+    class="grid23" 
+    (change)="changeData($event.checked)"
+    [(ngModel)]="checkboxValue"
+    name="ACCT_SUB_CTL"
+    >
+        Account is controlled by a Subsidiary Ledger
+        <br/>
+        (No Manual Postings Allowed)
+    </igx-checkbox>
+ 
+    <span class="posting_restrictions">.</span>
+    <span class="posting_restrictions">Posting Restrictions</span>
+
+    <div class="posting_restrictions_container">
+
+        <igx-select #select [(ngModel)]="GLTACCT1.ACCT_SEG2_MAND" class="grid1" name="ACCT_SEG2_MAND">
+            <label igxLabel>Department</label>
+            <igx-select-item *ngFor="let ASTCODE1 of ACCT_SEG_MANDs" [value]="ASTCODE1.T_CODE">
+                {{ASTCODE1.T_DESC}}
+            </igx-select-item>
+        </igx-select>
+    
+        <igx-select #select [(ngModel)]="GLTACCT1.ACCT_SEG3_MAND" class="grid2" name="ACCT_SEG3_MAND">
+            <label igxLabel>Trade Class</label>
+            <igx-select-item *ngFor="let ASTCODE1 of ACCT_SEG_MANDs" [value]="ASTCODE1.T_CODE">
+                {{ASTCODE1.T_DESC}}
+            </igx-select-item>
+        </igx-select>
+        
+        <igx-select #select [(ngModel)]="GLTACCT1.ACCT_SEG4_MAND" class="grid3" name="ACCT_SEG4_MAND">
+            <label igxLabel>Collection</label>
+            <igx-select-item *ngFor="let ASTCODE1 of ACCT_SEG_MANDs" [value]="ASTCODE1.T_CODE">
+                {{ASTCODE1.T_DESC}}
+            </igx-select-item>
+        </igx-select>
+
+    </div>
+
+
+
+</form>
+
+{{GLTACCT1 | json}}
+</div>

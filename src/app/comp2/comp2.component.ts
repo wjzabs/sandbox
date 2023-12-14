@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { GridColumnDataType } from '@infragistics/igniteui-angular';
+import { useAnimation } from '@angular/animations';
+import { Component, Input, ViewChild } from '@angular/core';
+import { CloseScrollStrategy, GlobalPositionStrategy, GridColumnDataType, IgxDialogComponent, IgxOverlayOutletDirective, PositionSettings, slideInBottom, slideOutTop } from '@infragistics/igniteui-angular';
 
 @Component({
   selector: 'app-comp2',
@@ -9,7 +10,9 @@ import { GridColumnDataType } from '@infragistics/igniteui-angular';
 export class Comp2Component {
 
   public taskTitle = 'mow the lawn';
-
+  // @Input() public title: string = '';
+  public title = 'Embedded Component';
+  
 btnClick(){
   console.log('button clicked')
 }
@@ -32,8 +35,35 @@ this.data.push({issue_no: issue_count + 1, issue_title: this.taskTitle})
 }
 
 clearTask() {
-
+  this.taskTitle = '';
 }
  
 
+
+@ViewChild(IgxOverlayOutletDirective, { static: true })
+public outlet!: IgxOverlayOutletDirective;
+
+@ViewChild('embedded', { read: IgxDialogComponent, static: true })
+public dialog!: IgxDialogComponent;
+
+private _animaitonSettings: PositionSettings = {
+    openAnimation: useAnimation(slideInBottom, { params: { fromPosition: 'translateY(100%)' } }),
+    closeAnimation: useAnimation(slideOutTop, { params: { toPosition: 'translateY(-100%)' } })
+};
+
+private _dialogOverlaySettings2: any;
+
+public openDialog() {
+    this._dialogOverlaySettings2.outlet = this.outlet;
+    this.dialog.open(this._dialogOverlaySettings2);
+}
+
+public ngOnInit() {
+    this._dialogOverlaySettings2 = {
+        modal: true,
+        outlet: this.outlet,
+        scrollStrategy: new CloseScrollStrategy(),
+        positionStrategy: new GlobalPositionStrategy(this._animaitonSettings)
+    };
+}
 }

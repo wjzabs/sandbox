@@ -1,0 +1,9 @@
+.action-bar-menu {
+  justify-self: right;
+  display: flex;
+  align-items: center;
+  .action-menu-button {
+    transform: scale(.85);
+    margin: 0 5px;
+  }
+}

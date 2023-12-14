@@ -1,0 +1,51 @@
+<div class="container">
+
+    <div class="container_title">Account Codes List</div>
+    
+    
+    <div class="sample-wrapper">
+        <div class="grid__wrapper">
+            <igx-grid  [data]="ASTDSQLAs" [allowFiltering]="false" filterMode="excelStyleFilter">
+                <igx-column *ngFor="let each of datacolumns"
+                    [sortable]="false"
+                    [field]="each.COLUMN_NAME"
+                    [header]="each.COLUMN_CAPTION"
+                    [width]="each.COLUMN_WIDTH"
+                    [dataType]="each.COLUMN_TYPE"
+                    [resizable]="true"
+                    [editable]="each.COLUMN_EDITABLE"
+                    class = "column-header"
+                    [headerClasses] = "'column-header'"
+                    
+                >
+                </igx-column>
+                <igx-grid-footer>
+    this is the grid footer
+                </igx-grid-footer>
+            </igx-grid>
+        </div>
+    </div>
+
+    <br/>
+
+    <form class="form">
+
+        <span class="posting_restrictions grid24">Options</span>
+    
+        <igx-checkbox class="grid23" (change)="changeData('MY_RECORDS_ONLY',$event.checked)"
+        [(ngModel)]="APRINVR1.MY_RECORDS_ONLY" name="APRINVR1.MY_RECORDS_ONLY">
+        My Records Only
+        </igx-checkbox>
+
+    </form>
+    
+    <br/>
+
+    <button igxButton="outlined" igxRipple (click)="proceed()">Proceed</button>
+
+    <br/>
+
+    {{APRINVR1 | json}}
+    </div>
+
+

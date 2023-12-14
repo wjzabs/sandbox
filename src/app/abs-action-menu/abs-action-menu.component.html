@@ -1,0 +1,44 @@
+<div class="action-bar-menu" *ngIf="actionBarMenuItems.length !== 0">
+
+  <!-- Show Action menu using Fab buttons (like on Menus) -->
+
+  <div *ngFor="let actionBarMenuItem of actionBarMenuItems">
+    <button *ngIf="actionBarMenuItem!.showFab" igxButton="fab"
+    (click)="actionBarMenuItem.clickAction(actionBarMenuItem.caption)"
+    class="action-menu-button"
+    [igxTooltipTarget]="tooltipRef"
+    >
+      <igx-icon [style.color]="'white'" family="material">{{actionBarMenuItem.icon}}</igx-icon>
+    </button>
+
+    <span #tooltipRef="tooltip" igxTooltip>{{actionBarMenuItem.caption}}</span>
+  </div>
+
+  <!-- Show vert button and menu of items using igx-drop-down -->
+
+    <button [igxToggleAction]="menu" [igxToggleOutlet]="outlet" 
+      [overlaySettings]="overlaySettings"
+      [igxDropDownItemNavigation]="menu" igxButton="icon">
+        <igx-icon family="material">more_vert</igx-icon>
+    </button>
+
+    <igx-drop-down #menu (selectionChanging)="onSelection($event)">
+      <div *ngFor="let actionBarMenuItem of actionBarMenuItems" style="margin-top: 5px;">
+        <div *ngIf="!actionBarMenuItem['hidden']">      
+          <igx-drop-down-item [value]="actionBarMenuItem.caption">
+            <igx-divider *ngIf="actionBarMenuItem.dividerBefore"></igx-divider>
+            <div
+              (click)="actionBarMenuItem.clickAction(actionBarMenuItem.caption)">
+              <igx-icon 
+              style="vertical-align: middle;margin-right: 10px;"
+              family="material">{{actionBarMenuItem.icon}}</igx-icon>
+              <span>{{ actionBarMenuItem.caption }}</span>
+            </div>
+            <igx-divider *ngIf="actionBarMenuItem.dividerAfter"></igx-divider>
+          </igx-drop-down-item>
+        </div>
+      </div>
+    </igx-drop-down>
+
+    <div class="overlayOutlet" igxOverlayOutlet #outlet="overlay-outlet"></div>
+</div>

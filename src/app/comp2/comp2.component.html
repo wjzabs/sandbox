@@ -113,7 +113,32 @@
       </igx-tabs>
 
     <div igxDialogActions>
-        <button igxButton (click)="form.close()">CANCEL</button>
-        <button igxButton (click)="form.close()">SIGN IN</button>
+        <button igxButton (click)="tasks.close()">CANCEL</button>
+        <button igxButton (click)="tasks.close()">SIGN IN</button>
     </div>
 </igx-dialog>
+
+
+
+
+
+
+<div igxOverlayOutlet>
+<button igxButton="raised" igxRipple="white" (click)="embedded.open()">Show Embedded</button>
+<button igxButton="raised" igxRipple="white" (click)="openDialog()">Show Embedded2</button>
+<igx-dialog #embedded [closeOnOutsideSelect]="true" >
+    <!-- <div appDraggable> -->
+    <igx-dialog-title>
+        <div class="dialog-container">
+            <igx-icon>vpn_key</igx-icon>
+            <div class="dialog-title">{{title}}</div>
+        </div>
+    </igx-dialog-title>
+<app-comp3 [data]="data" [datacolumns]="datacolumns"></app-comp3>
+    <div igxDialogActions>
+        <button igxButton (click)="embedded.close()">CANCEL</button>
+        <button igxButton (click)="embedded.close()">SIGN IN</button>
+    </div>
+<!-- </div> -->
+</igx-dialog>
+</div>

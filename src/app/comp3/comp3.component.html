@@ -1,0 +1,51 @@
+<p>comp3 works!</p>
+<igx-tabs style="min-width:600px">
+    <igx-tab-item>
+        <igx-tab-header>
+            <igx-icon igxTabHeaderIcon>favorite</igx-icon>
+            <span igxTabHeaderLabel>Task List</span>
+        </igx-tab-header>
+        <igx-tab-content>
+           
+            <div class="sample-wrapper">
+                <div class="grid__wrapper">
+                    <igx-grid  [data]="data" [allowFiltering]="true" filterMode="excelStyleFilter">
+                        <igx-column *ngFor="let each of datacolumns"
+                            [sortable]="true"
+                            [field]="each.field"
+                            [header]="each.header"
+                        >
+                        </igx-column>
+                        <igx-grid-footer>
+            this is the footer
+                        </igx-grid-footer>
+                    </igx-grid>
+                </div>
+            </div>
+
+        </igx-tab-content>
+    </igx-tab-item>
+    <igx-tab-item>
+        <igx-tab-header>
+            <igx-icon igxTabHeaderIcon>favorite</igx-icon>
+            <span igxTabHeaderLabel>Add Task</span>
+        </igx-tab-header>
+        <igx-tab-content>
+          
+            <div>
+
+                <form>
+                    <igx-input-group>
+                        <input igxInput name="fullName" [(ngModel)]="taskTitle" type="text" />
+                        <label igxLabel for="fullName">Task Title</label>
+                    </igx-input-group>
+                </form>
+            </div>
+            <button igxButton (click)="addTask()">Add Task</button>
+            <button igxButton (click)="clearTask()">Clear Task</button>
+            <div>
+
+            </div>
+        </igx-tab-content>
+    </igx-tab-item>
+  </igx-tabs>

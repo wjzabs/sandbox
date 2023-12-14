@@ -1,10 +1,51 @@
+<div class="sample-column">
+  <igx-navbar title="Sample App">
+      <igx-navbar-action>
+          <button igxButton="icon">
+              <igx-icon>menu</igx-icon>
+          </button>
+      </igx-navbar-action>
+      
+      <button igxButton="icon">
+          <igx-icon>search</igx-icon>
+      </button>
+      <button igxButton="icon">
+          <igx-icon>favorite</igx-icon>
+      </button>
+      <!-- <button igxButton="icon">
+          <igx-icon>more_vert</igx-icon>
+      </button> -->
+      <abs-action-menu #absactionmenu [actionBarMenuItems]="actionBarMenuItems"></abs-action-menu>
+  </igx-navbar>
+</div>
 
-<div>
+
+
+<!-- <div>
 <div (click)="menuItemClicked('home')">Home</div>
 <div (click)="menuItemClicked('comp1')">Comp1</div>
 <div (click)="menuItemClicked('comp2')">Comp2</div>
-</div>
+<div (click)="menuItemClicked('gltacct1')">GL Account Master</div>
+<div (click)="menuItemClicked('glrlist1')">Account Codes List</div>
+<div (click)="menuItemClicked('asfsprf1')">Reports Archive</div>
+<div (click)="menuItemClicked('aprinvr1')">Vendor Invoice Register</div>
+</div> -->
 
 <div class="outer-wrapper">
   <router-outlet></router-outlet>
 </div>
+
+<button igxButton="raised" igxRipple="white" (click)="openToast(toast, position.Top)" [disabled]="toast.isVisible">Show Toast</button>
+    
+<igx-toast #toast [outlet]="elem">Your Report is Ready.
+    <button igxButton="raised" igxRipple (click)="clickToast()">See Report</button>
+</igx-toast>
+
+<!-- <igx-toast #toast [autoHide]="false" [outlet]="elem">Your Report is Ready.
+    <button igxButton="raised" igxRipple (click)="clickToast()">See Report</button>
+</igx-toast> -->
+
+<!-- 
+<button igxButton="raised" (click)="toast.open()">Show notification</button>
+<igx-toast #toast>Notification displayed</igx-toast> -->
+
