@@ -40,6 +40,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HammerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    
   //   IgxButtonModule,
   //   IgxDialogModule,
   //   IgxAutocompleteModule,
