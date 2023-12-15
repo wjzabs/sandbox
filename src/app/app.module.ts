@@ -17,6 +17,8 @@ import { AbsActionMenuComponent } from './abs-action-menu/abs-action-menu.compon
 import { AbsIgxModule } from './abs-igx.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AsfsprfgComponent } from './asfsprfg/asfsprfg.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,15 @@ import { AsfsprfgComponent } from './asfsprfg/asfsprfg.component';
     Asfsprf1Component,
     AbsActionMenuComponent,
     Aprinvr1Component,
-    AsfsprfgComponent
+    AsfsprfgComponent,
+    PdfViewerComponent
   ],
   imports: [
     BrowserModule,
     HammerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxExtendedPdfViewerModule ,
     FormsModule,
     AbsIgxModule,
     ReactiveFormsModule,

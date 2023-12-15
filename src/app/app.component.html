@@ -35,7 +35,7 @@
   <router-outlet></router-outlet>
 </div>
 
-<button igxButton="raised" igxRipple="white" (click)="openToast(toast, position.Top)" [disabled]="toast.isVisible">Show Toast</button>
+<!-- <button igxButton="raised" igxRipple="white" (click)="openToast(toast, position.Top)" [disabled]="toast.isVisible">Show Toast</button> -->
     
 <igx-toast #toast [outlet]="elem">Your Report is Ready.
     <button igxButton="raised" igxRipple (click)="clickToast()">See Report</button>

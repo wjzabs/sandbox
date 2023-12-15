@@ -11,6 +11,7 @@ import { Gltacct1Component } from './gltacct1/gltacct1.component';
 import { Glrlist1Component } from './glrlist1/glrlist1.component';
 import { Asfsprf1Component } from './asfsprf1/asfsprf1.component';
 import { Aprinvr1Component } from './aprinvr1/aprinvr1.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'glrlist1', component: Glrlist1Component, data: { text: 'glrlist1' } },
   { path: 'asfsprf1', component: Asfsprf1Component, data: { text: 'asfsprf1' } },
   { path: 'aprinvr1', component: Aprinvr1Component, data: { text: 'aprinvr1' } },
+  { path: 'pdfviewer', component: PdfViewerComponent, data: { text: 'pdf viewer' } },
   { path: '**', component: PageNotFoundComponent } // must always be last
 ];
 

@@ -36,6 +36,7 @@ public actionBarMenuItems: IactionBarItem[] = [
   {clickAction: this.action.bind(this), icon: 'playlist_add', caption: 'GL Account Codes List'},
   {clickAction: this.action.bind(this), icon: 'view_list', caption: 'Reports Archive'},
   {clickAction: this.action.bind(this), icon: 'create', caption: 'Vendor Invoice Register'},
+  {clickAction: this.action.bind(this), icon: 'picture_as_pdf', caption: 'PDF Viewer'},
   // {clickAction: this.action.bind(this), icon: 'save_alt', caption: 'Save'},
   // {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Update'},
   // {clickAction: this.action.bind(this), icon: 'cancel', caption: 'Cancel'},
@@ -99,7 +100,9 @@ public position = VerticalAlignment;
       case 'Vendor Invoice Register':
         this.menuItemClicked('aprinvr1')
         break;
-
+      case 'PDF Viewer':
+        this.menuItemClicked('pdfviewer')
+        break;
       case 'Help':
         window.open("https://absapi.absolution1.com/MyStaticFiles/index.html", "_blank"); // Open new tab
         // window.open("https://www.google.com", "_blank"); // Open new tab
