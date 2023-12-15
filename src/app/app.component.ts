@@ -110,11 +110,69 @@ public position = VerticalAlignment;
   }
 
   
-  // printReport() {
-  //   setTimeout(() => {
-  //     this.openToast(this.toast, this.position.Top )
-  //   }, 4000)
-  // }
+  printReportTest(cb: any) {
+    setTimeout(() => {
+      this.openToast(this.toast, this.position.Top )
+      
+      let ASTSPRF1s = [
+        {
+          "REPORT_NO": "000001",
+          "FORM_NAME": "GLRLIST1",
+          "XNO": "0000000002",
+          "USER_ID": "wjz",
+          "YYYYPP": "2012312",
+          "YP_LEGEND": "2023-12 (Dec'23)  ",
+          "RPT_TITLE": "GL Accounts",
+          "RWU": "",
+          "RPT": "GLRLIST1",
+          "COMPUTER_NAME": "DESKTOP-1NNITKT",
+          "REPORT_DATE": new Date(2023, 11, 10, 19, 33, 10),
+          "SESSION_NO": "0000296294",
+          "MENU_ITEM_OBJECT": "GLRLIST1",
+          "MENU_ITEM_TYPE": "R",
+          "MENU_ITEM_SECURITY": "",
+          "VERSION_NO": "",
+          "SET_ID": "",
+          "SET_DESC": "",
+          "JOB_STREAM_XNO": "",
+          "JOB_STREAM_LNO": 1,
+          "MENU_ID": "BSE",
+          "FILETYPE": "PDF"
+        },
+        {
+          "REPORT_NO": "000002",
+          "FORM_NAME": "GLRLIST1",
+          "XNO": "0000000002",
+          "USER_ID": "wjz",
+          "YYYYPP": "2012312",
+          "YP_LEGEND": "2023-12 (Dec'23)  ",
+          "RPT_TITLE": "GL Account Segments",
+          "RWU": "",
+          "RPT": "GLRLIST2",
+          "COMPUTER_NAME": "DESKTOP-1NNITKT",
+          "REPORT_DATE": new Date(2023, 11, 10, 19, 33, 10),
+          "SESSION_NO": "0000296294",
+          "MENU_ITEM_OBJECT": "GLRLIST1",
+          "MENU_ITEM_TYPE": "R",
+          "MENU_ITEM_SECURITY": "",
+          "VERSION_NO": "",
+          "SET_ID": "",
+          "SET_DESC": "",
+          "JOB_STREAM_XNO": "",
+          "JOB_STREAM_LNO": 1,
+          "MENU_ID": "BSE",
+          "FILETYPE": "PDF"
+      }
+    ]
+
+    console.log(ASTSPRF1s)
+    console.log({ASTSPRF1s})
+    
+      cb(ASTSPRF1s);
+ 
+
+    }, 4000)
+  }
 
   async printReport(
     FOPM_NAME: string,

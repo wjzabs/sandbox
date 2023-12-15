@@ -22,6 +22,10 @@ margin: 10px;
     background-color: palegreen;
   }
 
+  .igx-tabs {
+    min-height:600px;
+  }
+  
   .grid23 {
     grid-column: 2 / 3;
     // outline: 1px solid blue; /* try border-left and border-right */

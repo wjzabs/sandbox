@@ -3,56 +3,83 @@
     <div class="container_title">Account Codes List</div>
     
     
-    <div class="sample-wrapper">
-        <div class="grid__wrapper">
-            <igx-grid  [data]="ASTDSQLAs" [allowFiltering]="false" filterMode="excelStyleFilter">
-                <igx-column *ngFor="let each of datacolumns"
-                    [sortable]="false"
-                    [field]="each.COLUMN_NAME"
-                    [header]="each.COLUMN_CAPTION"
-                    [width]="each.COLUMN_WIDTH"
-                    [dataType]="each.COLUMN_TYPE"
-                    [resizable]="true"
-                    [editable]="each.COLUMN_EDITABLE"
-                    class = "column-header"
-                    [headerClasses] = "'column-header'"
-                    
-                >
-                </igx-column>
-                <igx-grid-footer>
-    this is the grid footer
-                </igx-grid-footer>
-            </igx-grid>
-        </div>
-    </div>
+
 
     <br/>
 
-    <form class="form">
+    <igx-tabs #tabMain class="igx-tabs">
+        <igx-tab-item>
+            <igx-tab-header>
+                <igx-icon igxTabHeaderIcon>library_music</igx-icon>
+                <span igxTabHeaderLabel>Report Options</span>
+            </igx-tab-header>
+            <igx-tab-content>
 
-        <span class="posting_restrictions grid24">Print the Following Reports</span>
 
-        <igx-checkbox class="grid23" (change)="changeData('ACCT_CODES', $event.checked)"
-        [(ngModel)]="GLRLIST1.ACCT_CODES" name="GLRLIST1.ACCT_CODES">
-        Chart of Accounts
-        </igx-checkbox>
-     
-        <igx-checkbox *ngIf="GLRLIST1.SEG2_CODES" class="grid23" (change)="changeData('SEG2_CODES',$event.checked)"
-        [(ngModel)]="GLRLIST1.SEG2_CODES" name="GLRLIST1.SEG2_CODES">
-        {{GLTPARM1.GL_PARM_SEG2_DESC}} Codes List
-        </igx-checkbox>
-             
-        <igx-checkbox *ngIf="GLRLIST1.SEG3_CODES" class="grid23" (change)="changeData('SEG3_CODES',$event.checked)"
-        [(ngModel)]="GLRLIST1.SEG3_CODES" name="GLRLIST1.SEG3_CODES">
-        {{GLTPARM1.GL_PARM_SEG2_DESC}} Codes List
-        </igx-checkbox>
-             
-        <igx-checkbox *ngIf="GLRLIST1.SEG4_CODES" class="grid23" (change)="changeData('SEG4_CODES',$event.checked)"
-        [(ngModel)]="GLRLIST1.SEG4_CODES" name="GLRLIST1.SEG4_CODES">
-        {{GLTPARM1.GL_PARM_SEG2_DESC}} Codes List
-        </igx-checkbox>
-    </form>
-    
+                <div class="sample-wrapper">
+                    <div class="grid__wrapper">
+                        <igx-grid  [data]="ASTDSQLAs" [allowFiltering]="false" filterMode="excelStyleFilter">
+                            <igx-column *ngFor="let each of datacolumns"
+                                [sortable]="false"
+                                [field]="each.COLUMN_NAME"
+                                [header]="each.COLUMN_CAPTION"
+                                [width]="each.COLUMN_WIDTH"
+                                [dataType]="each.COLUMN_TYPE"
+                                [resizable]="true"
+                                [editable]="each.COLUMN_EDITABLE"
+                                class = "column-header"
+                                [headerClasses] = "'column-header'"
+                                
+                            >
+                            </igx-column>
+                            <igx-grid-footer>
+                this is the grid footer
+                            </igx-grid-footer>
+                        </igx-grid>
+                    </div>
+                </div>
+
+                <form class="form">
+
+                    <span class="posting_restrictions grid24">Print the Following Reports</span>
+            
+                    <igx-checkbox class="grid23" (change)="changeData('ACCT_CODES', $event.checked)"
+                    [(ngModel)]="GLRLIST1.ACCT_CODES" name="GLRLIST1.ACCT_CODES">
+                    Chart of Accounts
+                    </igx-checkbox>
+                 
+                    <igx-checkbox *ngIf="GLRLIST1.SEG2_CODES" class="grid23" (change)="changeData('SEG2_CODES',$event.checked)"
+                    [(ngModel)]="GLRLIST1.SEG2_CODES" name="GLRLIST1.SEG2_CODES">
+                    {{GLTPARM1.GL_PARM_SEG2_DESC}} Codes List
+                    </igx-checkbox>
+                         
+                    <igx-checkbox *ngIf="GLRLIST1.SEG3_CODES" class="grid23" (change)="changeData('SEG3_CODES',$event.checked)"
+                    [(ngModel)]="GLRLIST1.SEG3_CODES" name="GLRLIST1.SEG3_CODES">
+                    {{GLTPARM1.GL_PARM_SEG2_DESC}} Codes List
+                    </igx-checkbox>
+                         
+                    <igx-checkbox *ngIf="GLRLIST1.SEG4_CODES" class="grid23" (change)="changeData('SEG4_CODES',$event.checked)"
+                    [(ngModel)]="GLRLIST1.SEG4_CODES" name="GLRLIST1.SEG4_CODES">
+                    {{GLTPARM1.GL_PARM_SEG2_DESC}} Codes List
+                    </igx-checkbox>
+                </form>
+
+            </igx-tab-content>
+        </igx-tab-item>
+        <igx-tab-item>
+            <igx-tab-header>
+                <igx-icon igxTabHeaderIcon>telegram</igx-icon>
+                <span igxTabHeaderLabel>Completed Reports</span>
+            </igx-tab-header>
+            <igx-tab-content>
+
+<app-asfsprfg [ASTSPRF1s]="ASTSPRF1s"></app-asfsprfg>
+
+
+            </igx-tab-content>
+        </igx-tab-item>
+    </igx-tabs>
+   
     <br/>
 
     <button igxButton="outlined" igxRipple (click)="proceed()">Proceed</button>

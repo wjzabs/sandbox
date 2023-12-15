@@ -36,12 +36,12 @@
     <igx-input-group #inputGroup [igxToggleAction]="dropDown" class="grid23" name="ACCT_TYPE">
         <input #input class="input" type="text" igxInput [igxDropDownItemNavigation]="dropDown" readonly="true"
         [(ngModel)]="GLTACCT1.ACCT_TYPE"
-            placeholder="Account Type" [value]="dropDown.selectedItem?.value" (keydown.ArrowDown)="openDropDown()" />
+            placeholder="Account Type" [value]="dropDown.selectedItem.value" (keydown.ArrowDown)="openDropDown()" />
         <igx-suffix igxButton="icon" class="dropdownToggleButton" igxRipple>
             <igx-icon>arrow_drop{{ dropDown.collapsed ? '_down' : '_up' }}</igx-icon>
         </igx-suffix>
     </igx-input-group>
-    <span>Selected: {{ dropDown.selectedItem?.value }}</span>
+    <span>Selected: {{ dropDown.selectedItem.value }}</span>
     <igx-drop-down #dropDown [width]="'180px'">
         <igx-drop-down-item *ngFor="let ASTCODE1 of ACCT_TYPEs" [value]="ASTCODE1.T_CODE">
             {{ ASTCODE1.T_DESC }}

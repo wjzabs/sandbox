@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { GridColumnDataType, IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
+import { GridColumnDataType, IgxTabsComponent, IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -8,6 +8,104 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./glrlist1.component.scss']
 })
 export class Glrlist1Component {
+
+  public ASTSPRF1s: ASTSPRF1[] =  []
+
+  @ViewChild('tabMain') tabMain!: IgxTabsComponent
+// datacolumnsRPT = [
+
+//   { 
+//     COLUMN_KEY: 'REPORT_NO',
+//     COLUMN_HEADER: 'Report No',
+//     COLUMN_WIDTH: '10%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'FORM_NAME',
+//     COLUMN_HEADER: 'Form',
+//     COLUMN_WIDTH: '12%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'XNO',
+//     COLUMN_HEADER: 'X-No',
+//     COLUMN_WIDTH: '10%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'YP_LEGEND',
+//     COLUMN_HEADER: 'Period',
+//     COLUMN_WIDTH: '12%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'RPT_TITLE',
+//     COLUMN_HEADER: 'Report Title',
+//     COLUMN_WIDTH: '20%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'RPT',
+//     COLUMN_HEADER: 'Report',
+//     COLUMN_WIDTH: '10%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'REPORT_DATE',
+//     COLUMN_HEADER: 'Report Date',
+//     COLUMN_WIDTH: '15%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'D',
+//     COLUMN_TYPE: GridColumnDataType.Date,
+//     COLUMN_CLASSES: 'grd-column col-datetime',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'FILETYPE',
+//     COLUMN_HEADER: 'Type',
+//     COLUMN_WIDTH: '5%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.Image,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+//   { 
+//     COLUMN_KEY: 'FILENAME_ORIG',
+//     COLUMN_HEADER: 'File Name',
+//     COLUMN_WIDTH: '10%',
+//     COLUMN_MASK: '',
+//     DATA_TYPE: 'V',
+//     COLUMN_TYPE: GridColumnDataType.String,
+//     COLUMN_CLASSES: 'grd-column col-string',
+//     COLUMN_EDITABLE: false,
+//   },
+// ]
+
 
   public GLRLIST1: GLRLIST1 = new GLRLIST1();
   public GLTPARM1: GLTPARM1 = new GLTPARM1();
@@ -41,7 +139,39 @@ constructor(
   public appComponent: AppComponent
   ) {}
 
+  getReport(cell:any) {
+    console.log('getReport', cell);
+    window.open('https://absapi.absolution1.com/MyStaticFiles/index.html')
+    // alert(cell._row._data.RPT_TITLE)
+  }
+
   proceed() {
+    console.log("Print Report")
+    if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
+      alert("Nothing to Print")
+      return
+    }
+
+    // this.appComponent.printReportTest(this.ASTSPRF1s)
+
+    // this.appComponent.printReportTest(this.setASTSPRF1s)
+
+    this.appComponent.printReportTest(this.setASTSPRF1s.bind(this))
+    console.log('done with proceed')
+
+    // this.tabMain.selectedIndex = 1;
+}
+
+  setASTSPRF1s(A: ASTSPRF1[]) {
+
+    console.log({A})
+    console.log('this', this)
+    this.ASTSPRF1s =A;
+    console.log('this.ASTSPRF1s', this.ASTSPRF1s)
+    this.tabMain.selectedIndex = 1;
+  }
+   
+  proceed_api() {
     console.log("Print Report")
     if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
       alert("Nothing to Print")
@@ -98,3 +228,28 @@ export class ASTDSQLA {
   EXCL_CODES!: string;
   CODE_VALUES!: string;
 }
+
+export class ASTSPRF1 {                   
+  REPORT_NO!: string;                      
+  FORM_NAME!: string;                      
+  XNO!: string;                            
+  USER_ID!: string;                        
+  YYYYPP!: string;                         
+  YP_LEGEND!: string;                      
+  RPT_TITLE!: string;                      
+  RWU!: string;                            
+  RPT!: string;                            
+  COMPUTER_NAME!: string;                  
+  REPORT_DATE!: Date;                      
+  SESSION_NO!: string;                     
+  MENU_ITEM_OBJECT!: string;               
+  MENU_ITEM_TYPE!: string;                 
+  MENU_ITEM_SECURITY!: string;             
+  VERSION_NO!: string;                     
+  SET_ID!: string;                         
+  SET_DESC!: string;                       
+  JOB_STREAM_XNO!: string;                 
+  JOB_STREAM_LNO!: number;                       
+  MENU_ID!: string;      
+  FILETYPE!: string;                  
+}        
