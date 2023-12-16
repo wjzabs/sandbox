@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GridColumnDataType } from '@infragistics/igniteui-angular';
 
 @Component({
@@ -9,9 +9,12 @@ import { GridColumnDataType } from '@infragistics/igniteui-angular';
 export class AsfsprfgComponent {
 
   
-  // public ASTSPRF1s2: ASTSPRF1[] =  []
+  // public ASTSPRF1s: ASTSPRF1[] =  []
 
+  @Input() TITLE: string = '';
   @Input() ASTSPRF1s: ASTSPRF1[] =  [];
+  @Output() special = new EventEmitter<any>;
+  @Output() TITLEChange = new EventEmitter<string>();
 
 datacolumnsRPT = [
 
@@ -63,7 +66,7 @@ datacolumnsRPT = [
     DATA_TYPE: 'V',
     COLUMN_TYPE: GridColumnDataType.String,
     COLUMN_CLASSES: 'grd-column col-string',
-    COLUMN_EDITABLE: false,
+    COLUMN_EDITABLE: true,
   },
   { 
     COLUMN_KEY: 'RPT',
@@ -112,7 +115,14 @@ datacolumnsRPT = [
     console.log('getReport', cell);
     window.open('https://absapi.absolution1.com/MyStaticFiles/index.html')
     // alert(cell._row._data.RPT_TITLE)
+
+    this.TITLE = 'AP List'
+    this.TITLEChange.emit(this.TITLE);
+    
+    this.special.emit({firstname: 'walter', lastname: 'z', TITLE: this.TITLE})
+
   }
+
 
 
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GridColumnDataType, IgxTabsComponent, IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
 import { AppComponent } from '../app.component';
 
@@ -7,105 +7,11 @@ import { AppComponent } from '../app.component';
   templateUrl: './glrlist1.component.html',
   styleUrls: ['./glrlist1.component.scss']
 })
-export class Glrlist1Component {
+export class Glrlist1Component implements OnInit, AfterViewInit {
 
   public ASTSPRF1s: ASTSPRF1[] =  []
-
+  public TITLE2!: string;
   @ViewChild('tabMain') tabMain!: IgxTabsComponent
-// datacolumnsRPT = [
-
-//   { 
-//     COLUMN_KEY: 'REPORT_NO',
-//     COLUMN_HEADER: 'Report No',
-//     COLUMN_WIDTH: '10%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'FORM_NAME',
-//     COLUMN_HEADER: 'Form',
-//     COLUMN_WIDTH: '12%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'XNO',
-//     COLUMN_HEADER: 'X-No',
-//     COLUMN_WIDTH: '10%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'YP_LEGEND',
-//     COLUMN_HEADER: 'Period',
-//     COLUMN_WIDTH: '12%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'RPT_TITLE',
-//     COLUMN_HEADER: 'Report Title',
-//     COLUMN_WIDTH: '20%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'RPT',
-//     COLUMN_HEADER: 'Report',
-//     COLUMN_WIDTH: '10%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'REPORT_DATE',
-//     COLUMN_HEADER: 'Report Date',
-//     COLUMN_WIDTH: '15%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'D',
-//     COLUMN_TYPE: GridColumnDataType.Date,
-//     COLUMN_CLASSES: 'grd-column col-datetime',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'FILETYPE',
-//     COLUMN_HEADER: 'Type',
-//     COLUMN_WIDTH: '5%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.Image,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-//   { 
-//     COLUMN_KEY: 'FILENAME_ORIG',
-//     COLUMN_HEADER: 'File Name',
-//     COLUMN_WIDTH: '10%',
-//     COLUMN_MASK: '',
-//     DATA_TYPE: 'V',
-//     COLUMN_TYPE: GridColumnDataType.String,
-//     COLUMN_CLASSES: 'grd-column col-string',
-//     COLUMN_EDITABLE: false,
-//   },
-// ]
-
 
   public GLRLIST1: GLRLIST1 = new GLRLIST1();
   public GLTPARM1: GLTPARM1 = new GLTPARM1();
@@ -139,6 +45,14 @@ constructor(
   public appComponent: AppComponent
   ) {}
 
+  ngOnInit(): void {
+    // this.TITLE = 'GL Report'
+  }
+
+  ngAfterViewInit(): void {
+    this.TITLE2 = 'GL Report'
+  }
+
   getReport(cell:any) {
     console.log('getReport', cell);
     window.open('https://absapi.absolution1.com/MyStaticFiles/index.html')
@@ -156,7 +70,7 @@ constructor(
 
     // this.appComponent.printReportTest(this.setASTSPRF1s)
 
-    this.appComponent.printReportTest(this.setASTSPRF1s.bind(this))
+    this.appComponent.printReport(this.setASTSPRF1s.bind(this))
     console.log('done with proceed')
 
     // this.tabMain.selectedIndex = 1;
@@ -171,7 +85,13 @@ constructor(
     this.tabMain.selectedIndex = 1;
   }
    
-  proceed_api() {
+  special2(message: any) {
+    console.log('inside special2 inside glrlist1', message)
+    console.log('ASTSPRF1s inside glrlist1', this.ASTSPRF1s)
+    console.log('TITLE inside gltlist1', this.TITLE2)
+  }
+
+  proceed_API() {
     console.log("Print Report")
     if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
       alert("Nothing to Print")
@@ -198,8 +118,11 @@ constructor(
   }
 
 
-    this.appComponent.printReport('GLRLIST1', body);
+    // this.appComponent.printReport('GLRLIST1', body);
+    this.appComponent.printReport('GLRLIST1');
   }
+
+
 }
 
 export class GLRLIST1 {

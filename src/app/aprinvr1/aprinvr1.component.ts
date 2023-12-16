@@ -45,7 +45,7 @@ constructor(
       return
     }
    
-    this.appComponent.printReport('APRINVR1', {});
+    // this.appComponent.printReport('APRINVR1', {});
   }
 }
 

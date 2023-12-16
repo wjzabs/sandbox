@@ -73,8 +73,7 @@
             </igx-tab-header>
             <igx-tab-content>
 
-<app-asfsprfg [ASTSPRF1s]="ASTSPRF1s"></app-asfsprfg>
-
+<app-asfsprfg [ASTSPRF1s]="ASTSPRF1s" [(TITLE)]="TITLE2" (special)="special2($event)"></app-asfsprfg>
 
             </igx-tab-content>
         </igx-tab-item>
@@ -87,6 +86,10 @@
     <br/>
 
     {{GLRLIST1 | json}}
+    <br/>
+    {{TITLE2}}
+    <br/>
+    {{ASTSPRF1s | json}}
     </div>
 
 

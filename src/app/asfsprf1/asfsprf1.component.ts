@@ -439,7 +439,7 @@ export class Asfsprf1Component {
   proceed() {
     console.log("Print Report")
 
-    this.appComponent.printReport('ASFSPRF1', {});
+    // this.appComponent.printReport('ASFSPRF1', {});
 
   }  
 }

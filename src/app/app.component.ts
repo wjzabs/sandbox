@@ -113,7 +113,7 @@ public position = VerticalAlignment;
   }
 
   
-  printReportTest(cb: any) {
+  printReport(cb: any) {
     setTimeout(() => {
       this.openToast(this.toast, this.position.Top )
       
@@ -170,14 +170,14 @@ public position = VerticalAlignment;
 
     console.log(ASTSPRF1s)
     console.log({ASTSPRF1s})
-    
+
       cb(ASTSPRF1s);
  
 
     }, 4000)
   }
 
-  async printReport(
+  async printReportapi(
     FOPM_NAME: string,
     body: any
     ) {
