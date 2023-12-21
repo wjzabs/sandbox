@@ -140,7 +140,7 @@ public position = VerticalAlignment;
           "JOB_STREAM_XNO": "",
           "JOB_STREAM_LNO": 1,
           "MENU_ID": "BSE",
-          "FILETYPE": "PDF"
+          "FILETYPE": "XLS"
         },
         {
           "REPORT_NO": "000002",
@@ -164,7 +164,7 @@ public position = VerticalAlignment;
           "JOB_STREAM_XNO": "",
           "JOB_STREAM_LNO": 1,
           "MENU_ID": "BSE",
-          "FILETYPE": "PDF"
+          "FILETYPE": "XLS"
       }
     ]
 
@@ -177,7 +177,7 @@ public position = VerticalAlignment;
     }, 4000)
   }
 
-  async printReportapi(
+  async printReportAPI(
     FOPM_NAME: string,
     body: any
     ) {
@@ -186,22 +186,24 @@ public position = VerticalAlignment;
 
     console.log('printReport', FOPM_NAME, body);
 
-    let urlBaseABS = "http://localhost:1447/api/"
+    let urlBaseABS = "http://localhost:1977/api/"
 
-    let url = urlBaseABS + 'GL/' +  FOPM_NAME // + "_Report"
+    // let url = urlBaseABS + 'GL/' +  FOPM_NAME // + "_Report"
+    let url = urlBaseABS + 'AS/ReportRequest'
 
     console.log('printReport', url);
 
     let ob = this.http.post(url, body)
     .pipe(
       tap((res: any) => {
-        // console.log('tap from GetRecord', {res})
+        console.log('tap from printReport', {res})
 
       }),
       // map((res: any) => res['data'],
       map((res: any) => {
         this.openToast(this.toast, this.position.Top )
         console.log('returning result',  res )
+        return res;
       })
     )
     ob.subscribe((next) => {

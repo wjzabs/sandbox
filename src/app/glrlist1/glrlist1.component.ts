@@ -66,10 +66,7 @@ constructor(
       return
     }
 
-    // this.appComponent.printReportTest(this.ASTSPRF1s)
-
-    // this.appComponent.printReportTest(this.setASTSPRF1s)
-
+    // unrem the following line if you want to get the mocked up version to work
     this.appComponent.printReport(this.setASTSPRF1s.bind(this))
     console.log('done with proceed')
 
@@ -91,7 +88,7 @@ constructor(
     console.log('TITLE inside gltlist1', this.TITLE2)
   }
 
-  proceed_API() {
+  proceedapi() {
     console.log("Print Report")
     if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
       alert("Nothing to Print")
@@ -114,6 +111,8 @@ constructor(
     ],
   
   FORM_NAME: 'GLRLIST1', 
+  USER_ID: 'wjz',
+  SESSION_NO: '0000001234'
   
   }
 
