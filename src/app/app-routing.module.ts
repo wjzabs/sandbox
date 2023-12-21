@@ -12,6 +12,7 @@ import { Glrlist1Component } from './glrlist1/glrlist1.component';
 import { Asfsprf1Component } from './asfsprf1/asfsprf1.component';
 import { Aprinvr1Component } from './aprinvr1/aprinvr1.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'asfsprf1', component: Asfsprf1Component, data: { text: 'asfsprf1' } },
   { path: 'aprinvr1', component: Aprinvr1Component, data: { text: 'aprinvr1' } },
   { path: 'pdfviewer', component: PdfViewerComponent, data: { text: 'pdf viewer' } },
+  { path: 'xlsviewer', component: XlsViewerComponent, data: { text: 'xls viewer' } },
   { path: '**', component: PageNotFoundComponent } // must always be last
 ];
 

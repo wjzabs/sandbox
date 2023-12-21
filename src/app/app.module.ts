@@ -19,6 +19,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AsfsprfgComponent } from './asfsprfg/asfsprfg.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     AbsActionMenuComponent,
     Aprinvr1Component,
     AsfsprfgComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    XlsViewerComponent
   ],
   imports: [
     BrowserModule,
