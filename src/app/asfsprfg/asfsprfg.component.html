@@ -1,3 +1,41 @@
+<igx-grid  #gridASTWSVC1s 
+[data]="ASTWSVC1s" 
+[allowFiltering]="true" 
+[rowSelection]="'single'" [selectedRows]="selectedRows"
+(rowSelectionChanging)="handleRowSelection($event)"
+filterMode="excelStyleFilter">
+    <igx-column *ngFor="let each of colASTWSVC1s"
+        [sortable]="true"
+        [field]="each.COLUMN_KEY"
+        [header]="each.COLUMN_HEADER"
+        [width]="each.COLUMN_WIDTH"
+        [dataType]="each.COLUMN_TYPE"
+        [resizable]="true"
+        [editable]="each.COLUMN_EDITABLE"
+        class = "column-header"
+        [headerClasses] = "'column-header'"
+
+    >
+    
+     <ng-template *ngIf="each.COLUMN_KEY == 'DATE_REQUESTED' || each.COLUMN_KEY == 'DATE_STARTED' || each.COLUMN_KEY == 'DATE_COMPLETED'" igxCell let-cell="cell">
+        <div class="cell__inner_2">
+            <span >
+                {{ cell.value | date:"MM/dd/yyyy hh:mm a" }}
+            </span>
+        </div>
+    </ng-template>
+
+    </igx-column>
+    <igx-grid-footer>
+this is the grid footer for ASTWSVC1s component asfsprfg {{TITLE}}
+    </igx-grid-footer>
+
+    <igx-paginator #paginatorASTWSVC1s [(page)]="gridASTWSVC1s.page" [totalRecords]="gridASTWSVC1s.totalRecords" 
+    [(perPage)]="gridASTWSVC1s.perPage"
+    [selectOptions]="[3, 5, 10, 15]" [displayDensity]="gridASTWSVC1s.displayDensity">
+    </igx-paginator>
+</igx-grid>
+
 <igx-grid  #grid [data]="ASTSPRF1s" [allowFiltering]="true" filterMode="excelStyleFilter">
     <igx-column *ngFor="let each of datacolumnsRPT"
         [sortable]="true"

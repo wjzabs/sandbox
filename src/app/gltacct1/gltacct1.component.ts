@@ -98,6 +98,8 @@ export class Gltacct1Component implements OnInit, OnChanges {
     }
 
   }
+
+
 }
 
 export class GLTACCT1 {

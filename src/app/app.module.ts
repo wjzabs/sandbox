@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,8 @@ import { AsfsprfgComponent } from './asfsprfg/asfsprfg.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
+import { SignalrService } from './signalr.service';
+import { SignalrComponent } from './signalr/signalr.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
     Aprinvr1Component,
     AsfsprfgComponent,
     PdfViewerComponent,
-    XlsViewerComponent
+    XlsViewerComponent,
+    SignalrComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,15 @@ import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    SignalrService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (signalrService: SignalrService) => () => signalrService.initiateSignalrConnection(),
+      deps: [SignalrService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

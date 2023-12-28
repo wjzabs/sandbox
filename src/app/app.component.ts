@@ -38,6 +38,7 @@ public actionBarMenuItems: IactionBarItem[] = [
   {clickAction: this.action.bind(this), icon: 'create', caption: 'Vendor Invoice Register'},
   {clickAction: this.action.bind(this), icon: 'picture_as_pdf', caption: 'PDF Viewer'},
   {clickAction: this.action.bind(this), icon: 'article', caption: 'XLS Viewer'},
+  {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Signalr'},
   // {clickAction: this.action.bind(this), icon: 'save_alt', caption: 'Save'},
   // {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Update'},
   // {clickAction: this.action.bind(this), icon: 'cancel', caption: 'Cancel'},
@@ -104,9 +105,12 @@ public position = VerticalAlignment;
       case 'PDF Viewer':
         this.menuItemClicked('pdfviewer')
         break;
-        case 'XLS Viewer':
-          this.menuItemClicked('xlsviewer')
-          break;
+      case 'XLS Viewer':
+        this.menuItemClicked('xlsviewer')
+        break;
+      case "Signalr":
+        this.menuItemClicked('Signalr')
+        break;
       case 'Help':
         window.open("https://absapi.absolution1.com/MyStaticFiles/index.html", "_blank"); // Open new tab
         // window.open("https://www.google.com", "_blank"); // Open new tab
@@ -117,7 +121,7 @@ public position = VerticalAlignment;
   }
 
   
-  printReport(cb: any) {
+  printReportTest(cb: any) {
     setTimeout(() => {
       this.openToast(this.toast, this.position.Top )
       
@@ -181,9 +185,10 @@ public position = VerticalAlignment;
     }, 4000)
   }
 
-  async printReportAPI(
+  async printReport(
     FOPM_NAME: string,
-    body: any
+    body: any,
+    cb: any
     ) {
 
     // const body = {TABLE_NAME, SCHEMA_NAME, where_clause, order_by: ''};
@@ -198,21 +203,64 @@ public position = VerticalAlignment;
     console.log('printReport', url);
 
     let ob = this.http.post(url, body)
-    .pipe(
-      tap((res: any) => {
-        console.log('tap from printReport', {res})
 
-      }),
-      // map((res: any) => res['data'],
-      map((res: any) => {
-        this.openToast(this.toast, this.position.Top )
-        console.log('returning result',  res )
-        return res;
-      })
-    )
+    // .pipe(
+    //   tap((res: any) => {
+    //     console.log('tap from printReport', {res})
+    //   }),
+    //   // map((res: any) => res['data'],
+    //   map((res: any) => {
+    //     console.log('returning result',  res )
+    //     return res;
+    //   })
+    // )
+
+    // SUBSCRIBE IS USUALLY DONE IN THE CALLING COMPONENT
     ob.subscribe((next) => {
       console.log('returning next',  next )
+      // this.openToast(this.toast, this.position.Top )
+      if (cb) {
+        cb(next);
+      }
     })
+    // ,(err) => {console.log('http error ' +err)}
+    // ,() => {console.log('http complete')})
+}
+
+
+
+async checkReportStatus(SVC_REQ_NO: string, processResult: any) {
+
+  const body = {SVC_REQ_NO};
+
+  console.log('checkReportStatus', body);
+
+  let urlBaseABS = "http://localhost:1977/api/"
+
+  // let url = urlBaseABS + 'GL/' +  FOPM_NAME // + "_Report"
+  let url = urlBaseABS + 'AS/CheckReportStatus'
+
+  console.log('checkReportStatus', {url});
+
+  let ob = this.http.post(url, body)
+  .pipe(
+    tap((res: any) => {
+      console.log('tap from checkReportStatus', {res})
+
+    }),
+    // map((res: any) => res['data'],
+    map((res: any) => {
+      console.log('returning result',  res )
+      return res;
+    })
+  )
+  ob.subscribe((next) => {
+    console.log('returning next CheckReportStatus',  next )
+    this.openToast(this.toast, this.position.Top )
+    if (processResult) {
+      processResult(next)
+    }
+  })
 }
 
 }

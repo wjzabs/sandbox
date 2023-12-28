@@ -73,21 +73,27 @@
             </igx-tab-header>
             <igx-tab-content>
 
-<app-asfsprfg [ASTSPRF1s]="ASTSPRF1s" [(TITLE)]="TITLE2" (special)="special2($event)"></app-asfsprfg>
+<app-asfsprfg 
+[ASTWSVC1s]="ASTWSVC1s" 
+[ASTSPRF1s]="ASTSPRF1s" 
+[(TITLE)]="TITLE2" 
+[selectedRows]="selectedRows"
+(newSelection)="newSelectionEvent($event)"
+(special)="special2($event)"></app-asfsprfg>
 
             </igx-tab-content>
         </igx-tab-item>
     </igx-tabs>
    
     <br/>
-
     <button igxButton="outlined" igxRipple (click)="proceed()">Proceed</button>
-
-    <br/>
-
+        <button igxButton="raised" igxRipple (click)="checkReportStatus()">Check Report Status</button>
+        <button igxButton="raised" igxRipple (click)="checkReportStatus2()">Check Report Status using SignalR</button>
+        <br/>
+    
     {{GLRLIST1 | json}}
     <br/>
-    {{TITLE2}}
+    {{TITLE2}} {{SVC_REQ_NO}}
     <br/>
     {{ASTSPRF1s | json}}
     </div>

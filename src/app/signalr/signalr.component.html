@@ -1,0 +1,42 @@
+<p>signalr works!</p>
+<h2>SignalR Demo</h2>
+<p><b>hubHelloMessage:</b> {{ hubHelloMessage }}</p>
+<p>
+  <!-- <mat-progress-bar
+    style="width: 400px; height: 20px; display: inline-block"
+    mode="determinate"
+    [value]="progressPercentage"
+  >
+  </mat-progress-bar> -->
+
+  {{hubHelloMessageJSON | json}}
+
+  <igx-linear-bar [value]="progressPercentage" type="success" [striped]="true"></igx-linear-bar>
+  <span style="margin-left: 20px">{{ progressMessage }}</span>
+</p>
+<p>
+  <button [disabled]="processing" igxButton="outlined" igxRipple (click)="processData()">Process Data</button>
+</p>
+<p>
+    <button igxButton="raised" igxRipple (click)="checkReportStatus('0000000001')">Check Report Status</button>
+</p>
+
+<p>
+    <button igxButton="raised" igxRipple (click)="checkReportStatus2('0000000001')">Check Report Status using SignalR</button>
+</p>
+
+<div style="margin-top: 50px">
+  <p>
+    <small>
+      View the complete source code on
+      <a
+        href="https://github.com/mfcallahan/angular-signalr-demo/"
+        target="_blank"
+        rel="noopener"
+        >GitHub</a
+      >.
+    </small>
+  </p>
+</div>
+
+{{ hubReportStatusMessageJSON | json }}

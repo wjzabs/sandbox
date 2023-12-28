@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { GridColumnDataType, IgxTabsComponent, IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
+import { GridColumnDataType, IgxGridComponent, IgxTabsComponent, IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
 import { AppComponent } from '../app.component';
+import { SignalrService } from '../signalr.service';
 
 @Component({
   selector: 'app-glrlist1',
@@ -8,13 +9,22 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./glrlist1.component.scss']
 })
 export class Glrlist1Component implements OnInit, AfterViewInit {
+  
+  // hubReportStatusMessageJSON?: any;
+
+  public SVC_REQ_NO: string = '';
 
   public ASTSPRF1s: ASTSPRF1[] =  []
+  public ASTWSVC1s: ASTWSVC1[] =  []
+  public selectedRows: any[] = [];
+
   public TITLE2!: string;
   @ViewChild('tabMain') tabMain!: IgxTabsComponent
+  @ViewChild('gridASTWSVC1s') gridASTWSVC1s!: IgxGridComponent
 
   public GLRLIST1: GLRLIST1 = new GLRLIST1();
   public GLTPARM1: GLTPARM1 = new GLTPARM1();
+
   public ASTDSQLAs: ASTDSQLA[] = [
     { FORM_NAME: 'GLRLIST1', COLUMN_NAME: 'ACCT_CODE', COLUMN_CAPTION: 'Account', SORTABLE: '0', COLUMN_LAST: '', VIEW_NAME: 'ACCT_CODE', COLUMN_SEQ: '', PAGE_EJECT: '0', EXCL_CODES: '0', CODE_VALUES: '' },
     { FORM_NAME: 'GLRLIST1', COLUMN_NAME: 'SEG2_CODE', COLUMN_CAPTION: this.GLTPARM1['GL_PARM_SEG2_DESC'], SORTABLE: '0', COLUMN_LAST: '0', VIEW_NAME: 'SEG2_CODE', COLUMN_SEQ: '', PAGE_EJECT: '0', EXCL_CODES: '0', CODE_VALUES: '' },
@@ -42,11 +52,26 @@ export class Glrlist1Component implements OnInit, AfterViewInit {
   }
 
 constructor(
-  public appComponent: AppComponent
+  public appComponent: AppComponent,
+  public signalrService: SignalrService
   ) {}
 
   ngOnInit(): void {
     // this.TITLE = 'GL Report'
+
+    
+    this.signalrService.hubReportStatusMessageJSON.subscribe((hubReportStatusMessageJSON: any) => {
+      // this.hubReportStatusMessageJSON = hubReportStatusMessageJSON;
+      console.log(hubReportStatusMessageJSON)
+      this.ASTWSVC1s = hubReportStatusMessageJSON["ASTWSVC1s"]
+      // this.setASTSPRF1s(hubReportStatusMessageJSON["astsprF1s"])
+      this.setASTSPRF1s(hubReportStatusMessageJSON["ASTSPRF1s"])
+    });
+
+    
+    this.signalrService.RegisterReportResponse.subscribe((RegisterReportResponse: any) => {
+      console.log('RegisterReportResponse returned as ', RegisterReportResponse)
+    });
   }
 
   ngAfterViewInit(): void {
@@ -59,7 +84,7 @@ constructor(
     // alert(cell._row._data.RPT_TITLE)
   }
 
-  proceed() {
+  proceedTest() {
     console.log("Print Report")
     if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
       alert("Nothing to Print")
@@ -67,7 +92,7 @@ constructor(
     }
 
     // unrem the following line if you want to get the mocked up version to work
-    this.appComponent.printReport(this.setASTSPRF1s.bind(this))
+    // this.appComponent.printReport(this.setASTSPRF1s.bind(this))
     console.log('done with proceed')
 
     // this.tabMain.selectedIndex = 1;
@@ -88,7 +113,7 @@ constructor(
     console.log('TITLE inside gltlist1', this.TITLE2)
   }
 
-  proceedapi() {
+  proceed() {
     console.log("Print Report")
     if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
       alert("Nothing to Print")
@@ -117,10 +142,48 @@ constructor(
   }
 
 
-    // this.appComponent.printReport('GLRLIST1', body);
-    this.appComponent.printReport('GLRLIST1');
+    this.appComponent.printReport('GLRLIST1', body, this.recordReportRequest.bind(this));
+    // this.appComponent.printReport('GLRLIST1');
+  }
+  
+  recordReportRequest(res:any) {
+    this.ASTWSVC1s = res["ASTWSVC1s"]
+    this.SVC_REQ_NO = res["SVC_REQ_NO"]
+
+    console.log("in cb registering report", this.SVC_REQ_NO)
+
+    this.signalrService.connection
+    .invoke('RegisterReport',this.SVC_REQ_NO)
+    .catch((error: any) => {
+      console.log(`SignalrHub.Hello() error: ${error.toString()}`);
+      alert('SignalrHub.Hello() error!, see console for details.');
+    });
+
   }
 
+  checkReportStatus() {
+    console.log('selectedRows: ', this.selectedRows)
+    this.appComponent.checkReportStatus(this.SVC_REQ_NO, this.processResult.bind(this))
+  }
+
+  public processResult(data: any) {
+    // this.gridASTWSVC1s.curr
+    this.ASTWSVC1s = data["ASTWSVC1s"]
+    this.setASTSPRF1s(data["ASTSPRF1s"])
+  }
+
+  checkReportStatus2() {
+    this.signalrService.connection
+    .invoke('Hello2',this.SVC_REQ_NO, false)
+    .catch((error: any) => {
+      console.log(`SignalrHub.Hello() error: ${error.toString()}`);
+      alert('SignalrHub.Hello() error!, see console for details.');
+    });
+  }
+  
+  newSelectionEvent(event: any) {
+    console.log({event})
+  }
 
 }
 
@@ -175,3 +238,16 @@ export class ASTSPRF1 {
   MENU_ID!: string;      
   FILETYPE!: string;                  
 }        
+
+export class ASTWSVC1 {                   
+  SVC_REQ_NO!: string;                     
+  REPORT_NAME!: string;                    
+  DATASET_LOCATION!: string;               
+  REPORT_EXPORT_FORMAT!: string;           
+  REPORT_EXPORT_FILENAME!: string;         
+  DATE_REQUESTED!: Date;                   
+  DATE_STARTED!: Date;                     
+  DATE_COMPLETED!: Date;                   
+  SVC_REQ_STATUS!: string;                 
+  SVC_REQ_KEY!: string;                    
+}                    

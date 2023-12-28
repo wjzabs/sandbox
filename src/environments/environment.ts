@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  signalrHubUrl: 'https://localhost:7199/signalrdemohub',
+  // signalrHubUrl: 'https://localhost:1977/signalrhub',
+  signalrHubUrl2: 'http://localhost:1977/signalrhub',
 };
 
 /*
