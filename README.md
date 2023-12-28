@@ -1,4 +1,4 @@
-# issues
+# sandbox
 
 This project was generated with [Ignite UI CLI](https://github.com/IgniteUI/igniteui-cli) version 12.0.6.
 
