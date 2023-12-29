@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/co
 import { Router } from '@angular/router';
 import { IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
 import { map, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -195,7 +196,7 @@ public position = VerticalAlignment;
 
     console.log('printReport', FOPM_NAME, body);
 
-    let urlBaseABS = "http://localhost:1977/api/"
+    let urlBaseABS = environment.urlBaseABS //  "http://localhost:1977/api/"
 
     // let url = urlBaseABS + 'GL/' +  FOPM_NAME // + "_Report"
     let url = urlBaseABS + 'AS/ReportRequest'
@@ -235,7 +236,7 @@ async checkReportStatus(SVC_REQ_NO: string, processResult: any) {
 
   console.log('checkReportStatus', body);
 
-  let urlBaseABS = "http://localhost:1977/api/"
+  let urlBaseABS = environment.urlBaseABS // "http://localhost:1977/api/"
 
   // let url = urlBaseABS + 'GL/' +  FOPM_NAME // + "_Report"
   let url = urlBaseABS + 'AS/CheckReportStatus'
