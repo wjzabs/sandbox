@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  // signalrHubUrl: 'https://localhost:7199/signalrdemohub',
-  // // signalrHubUrl: 'https://localhost:1977/signalrhub',
-  // signalrHubUrl2: 'http://localhost:1977/signalrhub',
-  // urlBaseABS: "http://localhost:1977/api/"
-
-  signalrHubUrl: 'https://absapi.absolution1.com/signalrdemohub',
+  signalrHubUrl: 'https://localhost:7199/signalrdemohub',
   // signalrHubUrl: 'https://localhost:1977/signalrhub',
-  signalrHubUrl2: 'https:///absapi.absolution1.com/signalrhub',
-  urlBaseABS: "https://absapi.absolution1.com/api/"
+  signalrHubUrl2: 'http://localhost:1977/signalrhub',
+  urlBaseABS: "http://localhost:1977/api/"
+
+  // signalrHubUrl: 'https://absapi.absolution1.com/signalrdemohub',
+  // // signalrHubUrl: 'https://localhost:1977/signalrhub',
+  // signalrHubUrl2: 'https:///absapi.absolution1.com/signalrhub',
+  // urlBaseABS: "https://absapi.absolution1.com/api/"
 };
 
 /*

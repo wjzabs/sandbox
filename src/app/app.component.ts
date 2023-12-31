@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { IgxToastComponent, VerticalAlignment } from '@infragistics/igniteui-angular';
-import { map, tap } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Home - IgniteUI for Angular';
   @ViewChild('toast') toast!: IgxToastComponent;
   
@@ -23,7 +23,102 @@ export class AppComponent {
 
 }
   
-  menuItemClicked(route: string) {
+ngOnInit(): void {
+
+  localStorage.removeItem('session');
+  localStorage.removeItem('JWT');
+
+  let ob = this.authenticateUser({USER_ID: 'wjz', USER_PASSWORD: 'office', REMEMBER_ME: true})
+  console.log('authenticateUser')
+  ob.subscribe((next:any) => {
+    console.log('authenticated', next)
+  })
+}
+  
+authenticateUser(user: {
+  USER_ID: string;
+  USER_PASSWORD: string;
+  REMEMBER_ME: boolean
+}) {
+  // return this.http.post<any>(this.loginUrl, user);
+  let loginUrl = environment.urlBaseABS + 'AS/login';
+
+  let JWT = localStorage.getItem('JWT');
+  // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + JWT);
+  // const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  // let headers = new HttpHeaders().set('Content-Type', 'application/json');
+  let headerItems = {} // { 'Content-Type': 'application/json' }
+
+  if (JWT) {
+    headerItems = { ...headerItems, Authorization: 'Bearer ' + JWT }
+    console.log('including JWT')
+  } else {
+    headerItems = { 'Content-Type': 'application/json' }
+    console.log('excluding JWT')
+    }
+
+  let headers = new HttpHeaders(headerItems);
+
+
+let options = { headers: headers };
+
+  // { headers: {'Content-Type': 'application/json'} }
+
+  console.log(loginUrl)
+  console.log(headers)
+  // return this.http.post<any>(loginUrl, user, { headers })
+  // return this.http.post<any>(loginUrl, user, { headers: {'Content-Type': 'application/json'} })
+  return this.http.post<any>(loginUrl, user, options)
+  .pipe(
+    map(u => {
+      // console.log('pipe', u)
+    this.storeAuthResponse(u);
+    return u;
+    }),
+    // catchError(this.handleError)
+    catchError((err:any, caught: Observable<any>) => {
+      console.log('error in authenticateUser. Details: ' + err)
+      // throw 'error in authenticateUser. Details: ' + err;
+      return throwError(err)
+    })
+  );
+}
+
+
+
+storeAuthResponse(sessionUser: any, navigate = true) {
+  try {
+    // this.session = sessionUser;
+    // this.buildUserObject(this.session, true);
+    localStorage.setItem('session', JSON.stringify(sessionUser));
+    localStorage.setItem('JWT', sessionUser.BearerToken);
+    // console.log('sessionUser.BearerToken', sessionUser.BearerToken)
+    // if (navigate) {
+    //   this.router.navigate(['abs', 'dashboard'])
+    // }
+  }
+  catch (err) {
+    throw(err);
+  }
+}
+
+
+private handleError(error: HttpErrorResponse) {
+  console.log({error})
+  let errorMessage = 'Unknown error!';
+  if (error.error instanceof ErrorEvent) {
+    // Client-side errors
+    errorMessage = `Error: ${error.error.message}`;
+  } else {
+    // Server-side errors
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  }
+  console.log(errorMessage);
+  return throwError(errorMessage);
+}
+
+
+menuItemClicked(route: string) {
     console.log('menuItemClicked',route)
     this.router.navigate(['/' + route]);
 }
@@ -203,7 +298,22 @@ public position = VerticalAlignment;
 
     console.log('printReport', url);
 
-    let ob = this.http.post(url, body)
+
+    let JWT = localStorage.getItem('JWT');
+    let headerItems = {}  
+    if (JWT) {
+      headerItems = { ...headerItems, Authorization: 'Bearer ' + JWT }
+      console.log('including JWT')
+    } else {
+      headerItems = { 'Content-Type': 'application/json' }
+      console.log('excluding JWT')
+      }
+      let headers = new HttpHeaders(headerItems); 
+    let options = { headers: headers };
+
+
+
+    let ob = this.http.post(url, body, options)
 
     // .pipe(
     //   tap((res: any) => {

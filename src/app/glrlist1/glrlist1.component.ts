@@ -174,7 +174,7 @@ constructor(
 
   checkReportStatus2() {
     this.signalrService.connection
-    .invoke('Hello2',this.SVC_REQ_NO, false)
+    .invoke('RequestReportStatus',this.SVC_REQ_NO, false)
     .catch((error: any) => {
       console.log(`SignalrHub.Hello() error: ${error.toString()}`);
       alert('SignalrHub.Hello() error!, see console for details.');

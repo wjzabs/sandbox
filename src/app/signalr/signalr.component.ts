@@ -78,7 +78,7 @@ export class SignalrComponent implements OnInit {
 
   checkReportStatus2(SVC_EXE_NO: string) {
     this.signalrService.connection
-    .invoke('Hello2',SVC_EXE_NO, false)
+    .invoke('RequestReportStatus',SVC_EXE_NO, false)
     .catch((error: any) => {
       console.log(`SignalrHub.Hello() error: ${error.toString()}`);
       alert('SignalrHub.Hello() error!, see console for details.');
