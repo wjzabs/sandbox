@@ -22,6 +22,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
 import { SignalrService } from './signalr.service';
 import { SignalrComponent } from './signalr/signalr.component';
+import { Icfstat1Component } from './icfstat1/icfstat1.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SignalrComponent } from './signalr/signalr.component';
     AsfsprfgComponent,
     PdfViewerComponent,
     XlsViewerComponent,
-    SignalrComponent
+    SignalrComponent,
+    Icfstat1Component
   ],
   imports: [
     BrowserModule,

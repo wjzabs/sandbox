@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="container_title">Item Status</div>
+    
+    <form class="form">
+    
+        <igx-input-group class="grid23">
+            <input igxInput name="ITEM_CODE" [(ngModel)]="ICTITEM1.ITEM_CODE" type="text" name="ITEM_CODE"/>
+            <label igxLabel for="ITEM_CODE">Item Code</label>
+        </igx-input-group>
+    
+        <igx-input-group class="grid24">
+            <input igxInput name="ITEM_DESC" [(ngModel)]="ICTITEM1.ITEM_DESC" type="text" name="ITEM_DESC"/>
+            <label igxLabel for="ITEM_DESC">Description</label>
+        </igx-input-group>
+     
+        <igx-input-group class="grid24">
+            <input igxInput name="ITEM_UPC_CODE" [(ngModel)]="ICTITEM1.ITEM_UPC_CODE" type="text" name="ITEM_UPC_CODE"/>
+            <label igxLabel for="ITEM_UPC_CODE">UPC</label>
+        </igx-input-group>
+
+        <igx-select #select [(ngModel)]="ICTITEM1.ITEM_STATUS" class="grid23" name="ITEM_STATUS">
+            <label igxLabel>Status</label>
+            <igx-select-item *ngFor="let ASTCODE1 of ITEM_STATUSs" [value]="ASTCODE1.T_CODE">
+                {{ASTCODE1.T_DESC}}
+            </igx-select-item>
+        </igx-select>
+        
+        <igx-radio-group class="grid34" (change)="onChangeRadio($event)" >
+            Status
+            <igx-radio *ngFor="let ASTCODE1 of ITEM_STATUSs" name="ITEM_STATUS"
+            [value]="ASTCODE1.T_CODE" 
+            [(ngModel)]="ICTITEM1['ITEM_STATUS']"        
+            >
+                {{ASTCODE1.T_DESC}}
+            </igx-radio>
+        </igx-radio-group>  
+        
+        <igx-input-group class="grid23" name="PRICE_CATGY_CODE">
+            <input igxInput name="PRICE_CATGY_CODE" [(ngModel)]="ICTITEM1.PRICE_CATGY_CODE" type="text" 
+            (change)="onChange('PRICE_CATGY_CODE')" />
+            <label igxLabel for="PRICE_CATGY_CODE">Price Catgy</label>
+        </igx-input-group>
+    
+        <igx-input-group class="grid34 readonly" name="PRICE_CATGY_DESC">
+            <input igxInput name="PRICE_CATGY_DESC" [(ngModel)]="ICTPCAT1.PRICE_CATGY_DESC" type="text"  
+            readonly  tabindex="-1"/>
+            <label igxLabel for="PRICE_CATGY_DESC">Description</label>
+        </igx-input-group>
+       
+        <!-- [(ngModel)]="GLTACCT1.ITEM_COATED" -->
+        <igx-checkbox
+        class="grid23" 
+        (change)="changeData($event.checked)"
+        [(ngModel)]="checkboxValue"
+        name="ITEM_COATED"
+        >
+            Item is Coated
+            <br/>
+            (with an AR Coating)
+        </igx-checkbox> 
+     </form>
+    
+     <igx-grid  #grid [data]="ICTSTATXs" [allowFiltering]="true" filterMode="excelStyleFilter">
+        <igx-column *ngFor="let each of datacolumns"
+            [sortable]="true"
+            [field]="each.COLUMN_KEY"
+            [header]="each.COLUMN_HEADER"
+            [width]="each.COLUMN_WIDTH"
+            [dataType]="each.COLUMN_TYPE"
+            [resizable]="true"
+            [editable]="each.COLUMN_EDITABLE"
+            class = "column-header"
+            [headerClasses] = "'column-header'"            
+        >
+        </igx-column>
+        <igx-grid-footer>
+this is the item status footer
+        </igx-grid-footer>
+
+        <igx-paginator #paginator [(page)]="grid.page" [totalRecords]="grid.totalRecords" 
+        [(perPage)]="grid.perPage"
+        [selectOptions]="[3, 5, 10, 15]" [displayDensity]="grid.displayDensity">
+        </igx-paginator>
+    </igx-grid>
+
+    {{ICTITEM1 | json}}
+    </div>

@@ -135,6 +135,7 @@ public actionBarMenuItems: IactionBarItem[] = [
   {clickAction: this.action.bind(this), icon: 'picture_as_pdf', caption: 'PDF Viewer'},
   {clickAction: this.action.bind(this), icon: 'article', caption: 'XLS Viewer'},
   {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Signalr'},
+  {clickAction: this.action.bind(this), icon: 'auto_awesome', caption: 'Item Status'},
   // {clickAction: this.action.bind(this), icon: 'save_alt', caption: 'Save'},
   // {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Update'},
   // {clickAction: this.action.bind(this), icon: 'cancel', caption: 'Cancel'},
@@ -206,6 +207,9 @@ public position = VerticalAlignment;
         break;
       case "Signalr":
         this.menuItemClicked('Signalr')
+        break;
+      case "Item Status":
+        this.menuItemClicked('icfstat1')
         break;
       case 'Help':
         window.open("https://absapi.absolution1.com/MyStaticFiles/index.html", "_blank"); // Open new tab
@@ -288,7 +292,7 @@ public position = VerticalAlignment;
     ) {
 
     // const body = {TABLE_NAME, SCHEMA_NAME, where_clause, order_by: ''};
-
+      
     console.log('printReport', FOPM_NAME, body);
 
     let urlBaseABS = environment.urlBaseABS //  "http://localhost:1977/api/"
@@ -298,20 +302,7 @@ public position = VerticalAlignment;
 
     console.log('printReport', url);
 
-
-    let JWT = localStorage.getItem('JWT');
-    let headerItems = {}  
-    if (JWT) {
-      headerItems = { ...headerItems, Authorization: 'Bearer ' + JWT }
-      console.log('including JWT')
-    } else {
-      headerItems = { 'Content-Type': 'application/json' }
-      console.log('excluding JWT')
-      }
-      let headers = new HttpHeaders(headerItems); 
-    let options = { headers: headers };
-
-
+    let options = { headers: this.getheaders() };
 
     let ob = this.http.post(url, body, options)
 
@@ -372,6 +363,48 @@ async checkReportStatus(SVC_REQ_NO: string, processResult: any) {
       processResult(next)
     }
   })
+}
+
+
+
+
+async updateReport(
+  FOPM_NAME: string,
+  body: any,
+  cb: any
+  ) {
+
+  console.log('updateReport', FOPM_NAME, body);
+
+  let urlBaseABS = environment.urlBaseABS //  "http://localhost:1977/api/"
+  let url = urlBaseABS + 'AS/ReportUpdate'
+
+  console.log('updateReport', url);
+
+  let options = { headers: this.getheaders() };
+
+  let ob = this.http.post(url, body, options)
+  ob.subscribe((next) => {
+    console.log('returning next',  next )
+    if (cb) {
+      cb(next);
+    }
+  })
+}
+
+getheaders(): {} {
+  let JWT = localStorage.getItem('JWT');
+  let headerItems = {}  
+  if (JWT) {
+    headerItems = { ...headerItems, Authorization: 'Bearer ' + JWT }
+    console.log('including JWT')
+  } else {
+    headerItems = { 'Content-Type': 'application/json' }
+    console.log('excluding JWT')
+    }
+    let headers = new HttpHeaders(headerItems); 
+    
+    return headers
 }
 
 }

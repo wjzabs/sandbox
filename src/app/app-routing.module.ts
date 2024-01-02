@@ -14,6 +14,7 @@ import { Aprinvr1Component } from './aprinvr1/aprinvr1.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
 import { SignalrComponent } from './signalr/signalr.component';
+import { Icfstat1Component } from './icfstat1/icfstat1.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'pdfviewer', component: PdfViewerComponent, data: { text: 'pdf viewer' } },
   { path: 'xlsviewer', component: XlsViewerComponent, data: { text: 'xls viewer' } },
   { path: 'Signalr', component: SignalrComponent, data: { text: 'SignalR' } },
+  { path: 'icfstat1', component: Icfstat1Component, data: { text: 'Item Status' } },
   { path: '**', component: PageNotFoundComponent } // must always be last
 ];
 

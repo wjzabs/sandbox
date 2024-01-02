@@ -13,12 +13,13 @@ export class Glrlist1Component implements OnInit, AfterViewInit {
   // hubReportStatusMessageJSON?: any;
 
   public SVC_REQ_NO: string = '';
+  public update_option = false;
 
-  public ASTSPRF1s: ASTSPRF1[] =  []
-  public ASTWSVC1s: ASTWSVC1[] =  []
+  public ASTSPRF1s!: ASTSPRF1[]; // =  []
+  public ASTWSVC1s!: ASTWSVC1[]; // =  []
   public selectedRows: any[] = [];
 
-  public TITLE2!: string;
+  public TITLE2: string = '';
   @ViewChild('tabMain') tabMain!: IgxTabsComponent
   @ViewChild('gridASTWSVC1s') gridASTWSVC1s!: IgxGridComponent
 
@@ -57,25 +58,41 @@ constructor(
   ) {}
 
   ngOnInit(): void {
-    // this.TITLE = 'GL Report'
-
     
-    this.signalrService.hubReportStatusMessageJSON.subscribe((hubReportStatusMessageJSON: any) => {
-      // this.hubReportStatusMessageJSON = hubReportStatusMessageJSON;
-      console.log(hubReportStatusMessageJSON)
-      this.ASTWSVC1s = hubReportStatusMessageJSON["ASTWSVC1s"]
-      // this.setASTSPRF1s(hubReportStatusMessageJSON["astsprF1s"])
-      this.setASTSPRF1s(hubReportStatusMessageJSON["ASTSPRF1s"])
-    });
-
-    
-    this.signalrService.RegisterReportResponse.subscribe((RegisterReportResponse: any) => {
-      console.log('RegisterReportResponse returned as ', RegisterReportResponse)
-    });
   }
 
   ngAfterViewInit(): void {
     this.TITLE2 = 'GL Report'
+    
+    this.signalrService.hubReportStatusMessageJSON.subscribe(
+      (hubReportStatusMessageJSON: any) => {
+      // this.hubReportStatusMessageJSON = hubReportStatusMessageJSON;
+      console.log(hubReportStatusMessageJSON)
+      // we should check something like RWU
+
+      this.ASTWSVC1s = hubReportStatusMessageJSON["ASTWSVC1s"]
+      // this.setASTSPRF1s(hubReportStatusMessageJSON["astsprF1s"])
+      this.setASTSPRF1s(hubReportStatusMessageJSON["ASTSPRF1s"])
+
+      if (this.ASTWSVC1s) {
+        console.log({len: this.ASTWSVC1s.length, tf: (this.ASTWSVC1s.length == 1)})
+        if (this.ASTWSVC1s.length == 1) {
+          let rowASTWSVC1: ASTWSVC1 = this.ASTWSVC1s[0];
+          if (rowASTWSVC1) {
+
+            console.log({sta: rowASTWSVC1['SVC_REQ_STATUS'], tf: (rowASTWSVC1['SVC_REQ_STATUS']=='2')})
+            if (rowASTWSVC1['SVC_REQ_STATUS']=='2') {
+              this.update_option = true;
+            }
+          }
+        }
+      }
+
+    });
+    
+    this.signalrService.RegisterReportResponse.subscribe((RegisterReportResponse: any) => {
+      console.log('RegisterReportResponse returned as ', RegisterReportResponse)
+    });
   }
 
   getReport(cell:any) {
@@ -114,6 +131,7 @@ constructor(
   }
 
   proceed() {
+    this.update_option = false
     console.log("Print Report")
     if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
       alert("Nothing to Print")
@@ -160,6 +178,45 @@ constructor(
     });
 
   }
+
+
+  
+  
+  update() {
+
+    
+    let body = {
+      FORM_NAME: 'GLRLIST1', 
+      USER_ID: 'wjz',
+      SESSION_NO: '0000001234',
+      SVC_REQ_NO: this.SVC_REQ_NO 
+    }
+
+    console.log("Update Report")
+    if (!(this.GLRLIST1.ACCT_CODES == '1' || this.GLRLIST1.SEG2_CODES == '1' || this.GLRLIST1.SEG3_CODES == '1' || this.GLRLIST1.SEG4_CODES == '1')) {
+      alert("Nothing to Update")
+      return
+    }
+   
+    this.appComponent.updateReport('GLRLIST1', body, this.recordUpdateRequest.bind(this));
+  }
+  
+
+  recordUpdateRequest(res:any) {
+    this.ASTWSVC1s = res["ASTWSVC1s"]
+    this.SVC_REQ_NO = res["SVC_REQ_NO"]
+
+    console.log("in cb registering update", this.SVC_REQ_NO)
+
+    // this.signalrService.connection
+    // .invoke('RegisterReport',this.SVC_REQ_NO)
+    // .catch((error: any) => {
+    //   console.log(`SignalrHub.Hello() error: ${error.toString()}`);
+    //   alert('SignalrHub.Hello() error!, see console for details.');
+    // });
+
+  }
+
 
   checkReportStatus() {
     console.log('selectedRows: ', this.selectedRows)
@@ -249,5 +306,10 @@ export class ASTWSVC1 {
   DATE_STARTED!: Date;                     
   DATE_COMPLETED!: Date;                   
   SVC_REQ_STATUS!: string;                 
-  SVC_REQ_KEY!: string;                    
+  SVC_REQ_KEY!: string;     
+  SIGNALR_USER!: string;                   
+  DATE_UPD_REQUESTED!: Date;               
+  DATE_UPD_STARTED!: Date;                 
+  DATE_UPD_COMPLETED!: Date;               
+  SVC_UPD_STATUS!: string;                
 }                    

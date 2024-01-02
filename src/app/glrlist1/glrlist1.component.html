@@ -87,9 +87,10 @@
    
     <br/>
     <button igxButton="outlined" igxRipple (click)="proceed()">Proceed</button>
-        <button igxButton="raised" igxRipple (click)="checkReportStatus()">Check Report Status</button>
-        <button igxButton="raised" igxRipple (click)="checkReportStatus2()">Check Report Status using SignalR</button>
-        <br/>
+    <button igxButton="raised" igxRipple (click)="checkReportStatus()">Check Report Status</button>
+    <button igxButton="raised" igxRipple (click)="checkReportStatus2()">Check Report Status using SignalR</button>
+    <button [disabled]="!update_option" igxButton="outlined" igxRipple (click)="update()">Update</button>
+    <br/>
     
     {{GLRLIST1 | json}}
     <br/>

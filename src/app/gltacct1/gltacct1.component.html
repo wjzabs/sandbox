@@ -33,20 +33,23 @@
         </igx-radio>
     </igx-radio-group>
 
-    <igx-input-group #inputGroup [igxToggleAction]="dropDown" class="grid23" name="ACCT_TYPE">
-        <input #input class="input" type="text" igxInput [igxDropDownItemNavigation]="dropDown" readonly="true"
-        [(ngModel)]="GLTACCT1.ACCT_TYPE"
+    <!-- <igx-input-group #inputGroup [igxToggleAction]="dropDown" class="grid23" name="ACCT_TYPE">
+        <input #input class="input" type="text" igxInput 
+        [igxDropDownItemNavigation]="dropDown" 
+        readonly="true"
+        [(ngModel)]="GLTACCT1['ACCT_TYPE']"
             placeholder="Account Type" [value]="dropDown.selectedItem.value" (keydown.ArrowDown)="openDropDown()" />
         <igx-suffix igxButton="icon" class="dropdownToggleButton" igxRipple>
             <igx-icon>arrow_drop{{ dropDown.collapsed ? '_down' : '_up' }}</igx-icon>
         </igx-suffix>
     </igx-input-group>
+
     <span>Selected: {{ dropDown.selectedItem.value }}</span>
     <igx-drop-down #dropDown [width]="'180px'">
-        <igx-drop-down-item *ngFor="let ASTCODE1 of ACCT_TYPEs" [value]="ASTCODE1.T_CODE">
+        <igx-drop-down-item *ngFor="let ASTCODE1 of ACCT_TYPEs" [value]="ASTCODE1['T_CODE']">
             {{ ASTCODE1.T_DESC }}
         </igx-drop-down-item>
-    </igx-drop-down>
+    </igx-drop-down> -->
 
 
     <!-- <igx-radio-group name="fruitsRadioGroup" formControlName="favoriteFruit" class="input-group ACCT_DR_CR_IND">
@@ -59,7 +62,7 @@
         <span>Normal Posting</span>
         <igx-radio class="radio-sample" *ngFor="let ASTCODE1 of ACCT_DR_CR_INDs" 
         name="ACCT_DR_CR_IND"
-        [value]="ASTCODE1.T_CODE" [(ngModel)]="GLTACCT1.ACCT_DR_CR_IND">
+        [value]="ASTCODE1['T_CODE']" [(ngModel)]="GLTACCT1['ACCT_DR_CR_IND']">
             {{ASTCODE1.T_DESC}}
         </igx-radio>
     </igx-radio-group>
