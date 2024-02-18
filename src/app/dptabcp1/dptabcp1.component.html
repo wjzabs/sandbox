@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="container_title">GL Account Master</div>
+    
+    <form class="form" [ngFormOptions]="{ updateOn:'blur' }">
+    
+        <p>Model:</p>
+        <pre>{{ DPTABCP1 | json }}</pre>
+        <igx-input-group class="grid23">
+            <input igxInput name="ABC_CODE" [(ngModel)]="DPTABCP1.ABC_CODE" type="text" name="ABC_CODE"/>
+            <label igxLabel for="ABC_CODE">Account Code</label>
+        </igx-input-group>
+    
+        <igx-input-group class="grid24">
+            <input igxInput name="ABC_DESC" [(ngModel)]="DPTABCP1.ABC_DESC" type="text" name="ABC_DESC"/>
+            <label igxLabel for="ABC_DESC">Description</label>
+        </igx-input-group>
+     
+        <span class="posting_restrictions">.</span>
+        <span class="posting_restrictions">ABC Parameters</span>
+    
+        <div class="posting_restrictions_container">
+    
+    
+        </div>
+    </form>
+    
+    {{DPTABCP1 | json}}
+    </div>

@@ -23,6 +23,7 @@ import { XlsViewerComponent } from './xls-viewer/xls-viewer.component';
 import { SignalrService } from './signalr.service';
 import { SignalrComponent } from './signalr/signalr.component';
 import { Icfstat1Component } from './icfstat1/icfstat1.component';
+import { Dptabcp1Component } from './dptabcp1/dptabcp1.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { Icfstat1Component } from './icfstat1/icfstat1.component';
     PdfViewerComponent,
     XlsViewerComponent,
     SignalrComponent,
-    Icfstat1Component
+    Icfstat1Component,
+    Dptabcp1Component
   ],
   imports: [
     BrowserModule,
