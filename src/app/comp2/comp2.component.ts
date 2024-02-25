@@ -1,6 +1,7 @@
 import { useAnimation } from '@angular/animations';
 import { Component, Input, ViewChild } from '@angular/core';
-import { CloseScrollStrategy, GlobalPositionStrategy, GridColumnDataType, IgxDialogComponent, IgxOverlayOutletDirective, PositionSettings, slideInBottom, slideOutTop } from '@infragistics/igniteui-angular';
+import { CloseScrollStrategy, GlobalPositionStrategy, GridColumnDataType, IgxDialogComponent, IgxOverlayOutletDirective, PositionSettings } from '@infragistics/igniteui-angular';
+import { slideInBottom, slideOutTop } from '@infragistics/igniteui-angular/animations';
 
 @Component({
   selector: 'app-comp2',
