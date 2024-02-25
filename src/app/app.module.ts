@@ -24,6 +24,7 @@ import { SignalrService } from './signalr.service';
 import { SignalrComponent } from './signalr/signalr.component';
 import { Icfstat1Component } from './icfstat1/icfstat1.component';
 import { Dptabcp1Component } from './dptabcp1/dptabcp1.component';
+import { Dptabcp2Component } from './dptabcp2/dptabcp2.component';
 
 @NgModule({
   declarations: [
@@ -44,14 +45,15 @@ import { Dptabcp1Component } from './dptabcp1/dptabcp1.component';
     XlsViewerComponent,
     SignalrComponent,
     Icfstat1Component,
-    Dptabcp1Component
+    Dptabcp1Component,
+    Dptabcp2Component 
   ],
   imports: [
     BrowserModule,
     HammerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxExtendedPdfViewerModule ,
+    NgxExtendedPdfViewerModule,
     FormsModule,
     AbsIgxModule,
     ReactiveFormsModule,

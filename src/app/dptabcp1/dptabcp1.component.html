@@ -7,7 +7,7 @@
         <pre>{{ DPTABCP1 | json }}</pre>
         <igx-input-group class="grid23">
             <input igxInput name="ABC_CODE" [(ngModel)]="DPTABCP1.ABC_CODE" type="text" name="ABC_CODE"/>
-            <label igxLabel for="ABC_CODE">Account Code</label>
+            <label igxLabel for="ABC_CODE">ABC Code</label>
         </igx-input-group>
     
         <igx-input-group class="grid24">
@@ -15,13 +15,60 @@
             <label igxLabel for="ABC_DESC">Description</label>
         </igx-input-group>
      
-        <span class="posting_restrictions">.</span>
+
+            <igx-input-group class="grid23">
+                <input igxInput name="ITEM_CLASS_CODE" [(ngModel)]="DPTABCP1.ITEM_CLASS_CODE" type="text" name="ITEM_CLASS_CODE"
+                 (change)="onChange('ITEM_CLASS_CODE', $event)"/>
+                <label igxLabel for="ITEM_CLASS_CODE">Class Code</label>
+            </igx-input-group>
+        
+            <igx-input-group class="grid34 readonly">
+                <input igxInput readonly name="ITEM_CLASS_DESC" [(ngModel)]="DPTABCP1.ITEM_CLASS_DESC" type="text" name="ITEM_CLASS_DESC"/>
+                <label igxLabel for="ITEM_CLASS_DESC">Class Description</label>
+            </igx-input-group>
+
+        <igx-input-group class="grid23">
+            <input igxInput required #ABC_MAX_POS="ngModel" name="ABC_MAX_POS" [(ngModel)]="DPTABCP1.ABC_MAX_POS" type="number" name="ABC_MAX_POS"/>
+            <label igxLabel for="ABC_MAX_POS">Maximum Position</label>
+            <igx-hint *ngIf="ABC_MAX_POS.touched && ABC_MAX_POS.hasError('required')">This field is required</igx-hint>
+        </igx-input-group>
+
+        <!-- <div *ngIf="ABC_MAX_POS.touched && ABC_MAX_POS.hasError('required')" class="input-error">This field is required</div> -->
+
+        <igx-input-group class="grid23">
+            <input igxInput name="ABC_MIN_POS" [(ngModel)]="DPTABCP1.ABC_MIN_POS" type="number" name="ABC_MIN_POS"/>
+            <label igxLabel for="ABC_MIN_POS">Minimum Position</label>
+        </igx-input-group>
+     
+        <igx-input-group class="grid23">
+            <input igxInput name="ABC_PCT_RANGE" [(ngModel)]="DPTABCP1.ABC_PCT_RANGE" type="number" name="ABC_PCT_RANGE"/>
+            <label igxLabel for="ABC_PCT_RANGE">ABC % Range</label>
+        </igx-input-group>
+             
+        <igx-input-group class="grid23">
+            <input igxInput name="ABC_MIN_DAYS_SUPPLY" [(ngModel)]="DPTABCP1.ABC_MIN_DAYS_SUPPLY" type="number" name="ABC_MIN_DAYS_SUPPLY"/>
+            <label igxLabel for="ABC_MIN_DAYS_SUPPLY">Minimum Days of Supply</label>
+        </igx-input-group>
+        
+        <br/>
+ 
+        <button class="grid23" igxButton="raised" (click)="test()">Test</button>
+        <button class="grid34" igxButton="raised" (click)="save()">Save</button>
+        <igx-toast #toast>{{ error_message }}</igx-toast>
+
+        <!-- <button igxButton="raised" igxRipple="white" (click)="alert.open()">Show Alert Dialog</button> -->
+
+        <igx-dialog #alert
+            title="Notification"
+            [message]="error_message"
+            leftButtonLabel="OK i will fix it"
+            (leftButtonSelect)="alert.close()">
+        </igx-dialog>
+
+        <!-- <span class="posting_restrictions">.</span>
         <span class="posting_restrictions">ABC Parameters</span>
-    
-        <div class="posting_restrictions_container">
-    
-    
-        </div>
+        <div class="posting_restrictions_container">   
+        </div> -->
     </form>
     
     {{DPTABCP1 | json}}

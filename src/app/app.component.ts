@@ -137,6 +137,7 @@ public actionBarMenuItems: IactionBarItem[] = [
   {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Signalr'},
   {clickAction: this.action.bind(this), icon: 'auto_awesome', caption: 'Item Status'},
   {clickAction: this.action.bind(this), icon: 'abc', caption: 'ABC Parameters'},
+  {clickAction: this.action.bind(this), icon: 'abc', caption: 'ABC Parameters - Reactive'},
   // {clickAction: this.action.bind(this), icon: 'save_alt', caption: 'Save'},
   // {clickAction: this.action.bind(this), icon: 'system_update_alt', caption: 'Update'},
   // {clickAction: this.action.bind(this), icon: 'cancel', caption: 'Cancel'},
@@ -214,6 +215,9 @@ public position = VerticalAlignment;
         break;
       case "ABC Parameters":
         this.menuItemClicked('dptabcp1')
+        break;   
+      case "ABC Parameters - Reactive":
+        this.menuItemClicked('dptabcp2')
         break;        
       case 'Help':
         window.open("https://absapi.absolution1.com/MyStaticFiles/index.html", "_blank"); // Open new tab
